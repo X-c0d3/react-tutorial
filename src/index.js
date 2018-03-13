@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-//Tutorials
+//Tutorials Redux
 //###################################################
 import { combineReducers,    createStore} from 'redux'
 import { Provider } from 'react-redux'
@@ -21,6 +21,7 @@ const allReducers = combineReducers({
 });
 
 
+//createsStore(Reducer,Payload)
 const store = createStore(
     allReducers, {
         products: [{
@@ -35,7 +36,12 @@ const store = createStore(
 );
 console.log(store.getState());
 
+//update ค่า state
+store.subscribe(()=> {
+    console.log("Update Store " + store.getState());
+});
 
+//เปลี่ยนแปลงค่า state 
 //store.dispatch(updateUserAction);
 
 
