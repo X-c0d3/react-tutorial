@@ -9,9 +9,13 @@ import registerServiceWorker from './registerServiceWorker';
 import { combineReducers,    createStore} from 'redux'
 import { Provider } from 'react-redux'
 
+
+
 //Import reducer
 import productsReducer from './reducers/products-reducer';
 import  userReducer  from './reducers/user-reducer';
+
+
 
 
 
@@ -48,6 +52,7 @@ store.subscribe(()=> {
 //###################################################
 
 
+//AIzaSyDHfbr14FlehxCcAn02QNXY8XBdhlaPS-Y
 
 
 ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
