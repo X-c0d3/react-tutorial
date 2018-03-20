@@ -1,11 +1,13 @@
+import _ from 'lodash'
 import React, { Component } from 'react';
 
 
 //Tutorials
 //###################################################
-import SearchBar from "./components/search_bar";
-import YTSearch from "youtube-api-search";
-import VideoList from "./components/video_list";
+import SearchBar from './components/search_bar';
+import YTSearch from 'youtube-api-search';
+import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail'
 
 import Header from './Header'
 import TodoInput from './TodoInput'
@@ -27,12 +29,13 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      videos: [],
       selectedVideo: null,
       currentTime: 0,
       todoItems: []
     }
 
-    this.videoSearch("surfboards");
+    this.videoSearch("typescript");
 
     this.onUpdateUser = this.onUpdateUser.bind(this);
     this.handleFooterClicked = this.handleFooterClicked.bind(this);
@@ -40,7 +43,7 @@ class App extends Component {
   }
 
   videoSearch(term) {
-    YTSearch({ key: API_KEY, term: term }, videos => {
+    YTSearch({ key: API_KEY, term: term }, (videos) => {
       this.setState({
         videos: videos,
         selectedVideo: videos[0]
@@ -64,11 +67,13 @@ class App extends Component {
 
   render() {
     let { currentTime,todoItems } = this.state;
+
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300); 
     return (
 
       <div>
-        <SearchBar />
-
+         <SearchBar onSearchTermChange={ videoSearch } />
+         <VideoDetail video={this.state.selectedVideo} />
          <VideoList
           onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
           videos={this.state.videos}
